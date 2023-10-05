@@ -7,16 +7,16 @@
 {% block content %}
   <div class="container mt-5">
     
-    <h2>Games List</h2>
-    <table class="table table-striped">
+    <h2 class="text-center m-3">Games List</h2>
+    <table class="table table-striped text-center">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Team 1</th>
-                <th>Team 1 Score</th>
-                <th>Team 2</th>
-                <th>Team 2 Score</th>
-                <th>Operations</th>
+                <th><i class="fa fa-calendar text-primary"></i> Date</th>
+                <th><i class="fa fa-users text-success"></i> Team 1</th>
+                <th><i class="fa fa-star text-info"></i> Team 1 Score</th>
+                <th><i class="fa fa-users text-danger"></i> Team 2</th>
+                <th><i class="fa fa-star text-info"></i> Team 2 Score</th>
+                <th><i class="fa fa-cogs text-primary"></i> Operations</th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +36,7 @@
         </tbody>
     </table>
     <hr>
-    <div class="mb-3">
+    <div class="mb-3 d-flex justify-content-center">
         <a href="{% url 'create_game' %}" class="btn btn-success">Add New Game</a>
     </div>
   </div>
