@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} Edit Game {% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <h2>Edit Game</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{ form.team_1.id_for_label }}" class="form-label">{{ form.team_1.label }}</label>
+                {{ form.team_1 }}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.team_1_score.id_for_label }}" class="form-label">{{ form.team_1_score.label }}</label>
+                {{ form.team_1_score }}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.team_2.id_for_label }}" class="form-label">{{ form.team_2.label }}</label>
+                {{ form.team_2 }}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.team_2_score.id_for_label }}" class="form-label">{{ form.team_2_score.label }}</label>
+                {{ form.team_2_score }}
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+{% endblock %}

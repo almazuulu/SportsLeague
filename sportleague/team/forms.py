@@ -59,3 +59,24 @@ class GameForm(forms.ModelForm):
             self.add_error('team_2_new_name', 'Team 2 name is required if creating a new team.')
 
         return cleaned_data
+    
+
+class GameEditForm(forms.ModelForm):
+    team_1 = forms.ModelChoiceField(
+        queryset=Team.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    team_2 = forms.ModelChoiceField(
+        queryset=Team.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    team_1_score = forms.IntegerField(
+        widget=forms.NumberInput(attrs={'class': 'form-control'})
+    )
+    team_2_score = forms.IntegerField(
+        widget=forms.NumberInput(attrs={'class': 'form-control'})
+    )
+    
+    class Meta:
+        model = Game
+        fields = ['team_1', 'team_1_score', 'team_2', 'team_2_score']

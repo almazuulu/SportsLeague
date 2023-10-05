@@ -2,12 +2,12 @@ import csv
 from typing import Any
 from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
-from django.views.generic.edit import FormView, DeleteView
+from django.views.generic.edit import FormView, DeleteView, UpdateView
 from django.views.generic import TemplateView, ListView, CreateView
 from io import TextIOWrapper
 
 from .models import Game, Team
-from .forms import UploadCSVForm, GameForm
+from .forms import UploadCSVForm, GameForm, GameEditForm
 
 
 class UploadCSVView(FormView):
@@ -28,11 +28,22 @@ class UploadCSVView(FormView):
 
         return super().form_valid(form)
     
-    
-class GamesEditView(ListView):
+class GamesListView(ListView):
     model = Game
     template_name = 'team/games.html'
     context_object_name = 'games'
+    
+    
+class GameEditView(UpdateView):
+    model = Game
+    form_class = GameEditForm
+    template_name = 'team/update_game.html'
+    success_url = reverse_lazy('games')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Edit Game'
+        return context
     
 
 class TeamRatingListView(ListView):
@@ -51,25 +62,28 @@ class CreateGameView(CreateView):
     success_url = reverse_lazy('games')
     
     def form_valid(self, form):
-        # Getting or creating trams based from names or selected ID
-        def get_or_create_team(choice_key, new_name_key):
-            choice = form.cleaned_data[choice_key]
-            if choice == 'new':
-                name = form.cleaned_data[new_name_key]
-                team, _ = Team.objects.get_or_create(name=name)
-            else:
-                team = Team.objects.get(pk=choice)
-            return team
+        # Saving the changes
+        response = super().form_valid(form)
+        
+        # Getting the old values before the update
+        old_team_1 = self.object.team_1
+        old_team_2 = self.object.team_2
 
-        team_1 = get_or_create_team('team_1', 'team_1_new_name')
-        team_2 = get_or_create_team('team_2', 'team_2_new_name')
+        # Updating the game with new values from the form
+        game = form.save()
+        
+        # Recalculating ranking for the old teams and new teams
+        old_team_1.recalculate_points()
+        old_team_2.recalculate_points()
+        game.team_1.recalculate_points()
+        game.team_2.recalculate_points()
 
-        self.object = form.save(commit=False)
-        self.object.team_1 = team_1
-        self.object.team_2 = team_2
-        self.object.save()
+        # Check and remove teams not involved in any games
+        for team in [old_team_1, old_team_2, game.team_1, game.team_2]:
+            if not Game.objects.filter(team_1=team).exists() and not Game.objects.filter(team_2=team).exists():
+                team.delete()
 
-        return super().form_valid(form)
+        return response
     
     
 class GameDeleteView(DeleteView):

@@ -28,7 +28,7 @@
                 <td>{{ game.team_2 }}</td>
                 <td>{{ game.team_2_score }}</td>
                 <td>
-                    <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i> Edit</a>
+                    <a href="{% url 'edit_game' game.pk %}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit</a>
                     <a href="{% url 'delete_game' game.pk %}" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
                 </td>
             </tr>
