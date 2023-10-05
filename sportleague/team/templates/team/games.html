@@ -1,10 +1,33 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title %}
-    Edit games
-{% endblock %}
-    Games 
-
-{% block content %}
+    Games table
 {% endblock %}
     
+{% block content %}
+  <div class="container mt-5">
+    <h2>Games List</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Team 1</th>
+                <th>Team 1 Score</th>
+                <th>Team 2</th>
+                <th>Team 2 Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for game in games %}
+            <tr>
+                <td>{{ game.date }}</td>
+                <td>{{ game.team_1 }}</td>
+                <td>{{ game.team_1_score }}</td>
+                <td>{{ game.team_2 }}</td>
+                <td>{{ game.team_2_score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+{% endblock %}

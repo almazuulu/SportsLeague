@@ -1,11 +1,16 @@
 {% extends 'base.html' %} 
 {% block content %}
 
-  <h2>Upload CSV File</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
-  </form>
+  <div class="container mt-5">
+    <h2>Upload CSV File</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.csv_file.id_for_label }}">{{ form.csv_file.label }}</label>
+            <input type="file" class="form-control-file" id="{{ form.csv_file.id_for_label }}" name="{{ form.csv_file.name }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+  </div>
 
 {% endblock %}

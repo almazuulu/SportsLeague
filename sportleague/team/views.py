@@ -1,6 +1,8 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 import csv
 from .models import Game, Team
 from .forms import UploadCSVForm
@@ -27,7 +29,21 @@ class UploadCSVView(FormView):
         return super().form_valid(form)
     
     
-class GamesEditView(TemplateView):
+class GamesEditView(ListView):
+    model = Game
     template_name = 'team/games.html'
+    context_object_name = 'games'
+    
+
+class TeamRatingListView(ListView):
+    model = Team
+    template_name = 'team/ranking_list.html'
+    context_object_name = 'teams'
+    
+    def get_queryset(self) -> QuerySet[Any]:
+        return Team.objects.all().order_by('-points', 'name')
+    
+    
+
     
     
