@@ -1,13 +1,13 @@
+import csv
 from typing import Any
 from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView, DeleteView
 from django.views.generic import TemplateView, ListView, CreateView
-import csv
+from io import TextIOWrapper
+
 from .models import Game, Team
 from .forms import UploadCSVForm, GameForm
-from io import TextIOWrapper
-from django.http import HttpResponseRedirect
 
 
 class UploadCSVView(FormView):
