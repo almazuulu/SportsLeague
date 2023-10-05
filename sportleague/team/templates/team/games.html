@@ -28,7 +28,7 @@
                 <td>{{ game.team_2_score }}</td>
                 <td>
                     <a href="#" class="btn btn-primary">Edit</a>
-                    <a href="#" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'delete_game' game.pk %}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
             {% endfor %}

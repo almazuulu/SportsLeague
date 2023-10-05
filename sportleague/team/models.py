@@ -10,6 +10,20 @@ class Team(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def recalculate_points(self):
+        # Calculating the wins and Draws
+        wins_as_team_1 = Game.objects.filter(team_1=self, team_1_score__gt=F('team_2_score')).count()
+        wins_as_team_2 = Game.objects.filter(team_2=self, team_2_score__gt=F('team_1_score')).count()
+        draws_as_team_1 = Game.objects.filter(team_1=self, team_1_score=F('team_2_score')).count()
+        draws_as_team_2 = Game.objects.filter(team_2=self, team_2_score=F('team_1_score')).count()
+        
+        # Total points calculating
+        total_points = (wins_as_team_1 + wins_as_team_2) * 3 + (draws_as_team_1 + draws_as_team_2)
+
+        # Updating the points
+        self.points = total_points
+        self.save()
 
 class Game(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -24,18 +38,9 @@ class Game(models.Model):
         super().save(*args, **kwargs)  # Save the game first
 
         # Recalculate points for the involved teams
-        for team in [self.team_1, self.team_2]:
-            # Calculate points as shown previously
-            wins_as_team_1 = Game.objects.filter(team_1=team, team_1_score__gt=F('team_2_score')).count()
-            wins_as_team_2 = Game.objects.filter(team_2=team, team_2_score__gt=F('team_1_score')).count()
-            draws_as_team_1 = Game.objects.filter(team_1=team, team_1_score=F('team_2_score')).count()
-            draws_as_team_2 = Game.objects.filter(team_2=team, team_1_score=F('team_2_score')).count()
-            total_points = (wins_as_team_1 + wins_as_team_2) * 3 + (draws_as_team_1 + draws_as_team_2)
-
-            # Update the team's points
-            team.points = total_points
-            team.save()
-            
+        self.team_1.recalculate_points()
+        self.team_2.recalculate_points()
+        
     def __str__(self):
         return f"{self.team_1} {self.team_1_score} - {self.team_2_score} {self.team_2}"
 

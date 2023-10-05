@@ -1,7 +1,7 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, DeleteView
 from django.views.generic import TemplateView, ListView, CreateView
 import csv
 from .models import Game, Team
@@ -70,3 +70,32 @@ class CreateGameView(CreateView):
         self.object.save()
 
         return super().form_valid(form)
+    
+    
+class GameDeleteView(DeleteView):
+    model = Game
+    template_name = 'team/delete_game_confirm.html' # Template of confirmation
+    success_url = reverse_lazy('games') 
+    
+    def post(self, request, *args, **kwargs):
+        game = self.get_object()
+        team_1 = game.team_1
+        team_2 = game.team_2
+
+        # Deleting the game
+        response = super().post(request, *args, **kwargs)  
+
+        # Recalculating ranking for both teams after deleting the game
+        team_1.recalculate_points()
+        team_2.recalculate_points()
+        
+        # Checking the other games of teams, if there are no more games in one of the team then we deleting from ranking
+        if not Game.objects.filter(team_1=team_1).exists() and not Game.objects.filter(team_2=team_1).exists():
+            team_1.delete()
+
+        if not Game.objects.filter(team_1=team_2).exists() and not Game.objects.filter(team_2=team_2).exists():
+            team_2.delete()
+
+        return response
+
+    
