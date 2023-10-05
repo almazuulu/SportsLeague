@@ -2,12 +2,12 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, CreateView
 import csv
 from .models import Game, Team
-from .forms import UploadCSVForm
+from .forms import UploadCSVForm, GameForm
 from io import TextIOWrapper
-
+from django.http import HttpResponseRedirect
 
 
 class UploadCSVView(FormView):
@@ -44,6 +44,29 @@ class TeamRatingListView(ListView):
         return Team.objects.all().order_by('-points', 'name')
     
     
+class CreateGameView(CreateView):
+    model = Game
+    form_class = GameForm
+    template_name = 'team/game_form.html'
+    success_url = reverse_lazy('games')
+    
+    def form_valid(self, form):
+        # Getting or creating trams based from names or selected ID
+        def get_or_create_team(choice_key, new_name_key):
+            choice = form.cleaned_data[choice_key]
+            if choice == 'new':
+                name = form.cleaned_data[new_name_key]
+                team, _ = Team.objects.get_or_create(name=name)
+            else:
+                team = Team.objects.get(pk=choice)
+            return team
 
-    
-    
+        team_1 = get_or_create_team('team_1', 'team_1_new_name')
+        team_2 = get_or_create_team('team_2', 'team_2_new_name')
+
+        self.object = form.save(commit=False)
+        self.object.team_1 = team_1
+        self.object.team_2 = team_2
+        self.object.save()
+
+        return super().form_valid(form)

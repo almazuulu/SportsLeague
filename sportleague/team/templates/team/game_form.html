@@ -1,0 +1,88 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Create Game</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="{{ form.team_1.id_for_label }}" class="form-label">Team 1</label>
+                {{ form.team_1 }}
+                {{ form.team_1_new_name }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.team_2.id_for_label }}" class="form-label">Team 2</label>
+                {{ form.team_2 }}
+                {{ form.team_2_new_name }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.team_1_score.id_for_label }}" class="form-label">Team 1 Score</label>
+                {{ form.team_1_score }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.team_2_score.id_for_label }}" class="form-label">Team 2 Score</label>
+                {{ form.team_2_score }}
+            </div>
+
+            <button type="submit" class="btn btn-primary" onclick="return validateTeams();">Save</button>
+        </form>
+
+        
+    </div>
+
+    {% block jsblock %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const team1Select = document.querySelector('#{{ form.team_1.id_for_label }}');
+            const team2Select = document.querySelector('#{{ form.team_2.id_for_label }}');
+            const team1NewNameInput = document.querySelector('#{{ form.team_1_new_name.id_for_label }}');
+            const team2NewNameInput = document.querySelector('#{{ form.team_2_new_name.id_for_label }}');
+        
+            team1Select.addEventListener('change', function() {
+                if (this.value === 'new') {
+                    team1NewNameInput.style.display = 'block';
+                } else {
+                    team1NewNameInput.style.display = 'none';
+                }
+            });
+        
+            team2Select.addEventListener('change', function() {
+                if (this.value === 'new') {
+                    team2NewNameInput.style.display = 'block';
+                } else {
+                    team2NewNameInput.style.display = 'none';
+                }
+            });
+        });
+        
+        function validateTeams() {
+            const team1SelectValue = document.querySelector('#{{ form.team_1.id_for_label }}').value;
+            const team2SelectValue = document.querySelector('#{{ form.team_2.id_for_label }}').value;
+            const team1NewNameValue = document.querySelector('#{{ form.team_1_new_name.id_for_label }}').value.trim();
+            const team2NewNameValue = document.querySelector('#{{ form.team_2_new_name.id_for_label }}').value.trim();
+        
+            // In case both teams from select option has similar names
+            if (team1SelectValue === team2SelectValue && team1SelectValue !== 'new' && team1SelectValue !== '') {
+                alert('A team cannot play against itself.');
+                return false;
+            }
+        
+            // In case both teams from dynamic input form  has similar names
+            if (team1NewNameValue && team2NewNameValue && team1NewNameValue === team2NewNameValue) {
+                alert('A team cannot play against itself.');
+                return false;
+            }
+        
+            return true; // If everything fine sending form
+        }
+        
+    </script>
+    {% endblock %}
+    
+{% endblock %}

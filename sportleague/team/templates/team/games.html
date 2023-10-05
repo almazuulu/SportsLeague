@@ -6,6 +6,7 @@
     
 {% block content %}
   <div class="container mt-5">
+    
     <h2>Games List</h2>
     <table class="table table-striped">
         <thead>
@@ -25,9 +26,17 @@
                 <td>{{ game.team_1_score }}</td>
                 <td>{{ game.team_2 }}</td>
                 <td>{{ game.team_2_score }}</td>
+                <td>
+                    <a href="#" class="btn btn-primary">Edit</a>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <hr>
+    <div class="mb-3">
+        <a href="{% url 'create_game' %}" class="btn btn-success">Add New Game</a>
+    </div>
   </div>
 {% endblock %}
