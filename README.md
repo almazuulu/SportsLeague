@@ -124,16 +124,20 @@ NOTICE: You can use "sport_games.csv" file to upload csv and test it
 # Screenshots of the Web Application:
 
 ### Main page to Upload CSV: 
+
 ![Upload CSV](sportleague/screenshots/upload_csv.png)
 
 ### Games table after uploading CSV File:
+
 There you can make all CRUD Operations:
 - Edit Game
 - Delete Game
 - Add New Game (Add New Team)
+
 ![Games Table](sportleague/screenshots/games_table.png)
 
 ### Editing the Game:
+
 ![Edit Game1](sportleague/screenshots/edit_game.png)
 ![Edit Game2](sportleague/screenshots/edit_game1.png)
 
@@ -147,6 +151,7 @@ after we edit the game:
 ![Edit Game6](sportleague/screenshots/add_update_rating4.png)
 
 ### Deleting the Game:
+
 ![Delete Game1](sportleague/screenshots/delete_game.png)
 ![Delete Game2](sportleague/screenshots/delete_game1.png)
 
@@ -156,27 +161,39 @@ this team is removed from the Ranking table also
 
 See the example bellow between Real Madrid vs. Barcelona, where Barcelona has no more games apart
 from Real Madrid:
+
 ![Delete Game3](sportleague/screenshots/delete_update_rating1.png)
 ![Delete Game4](sportleague/screenshots/delete_update_rating2.png)
+
 And Now there no more Barcelona team in the Ranking:
+
 ![Delete Game5](sportleague/screenshots/delete_update_rating3.png)
 
 ### Adding Game:
+
 ![Add Game1](sportleague/screenshots/add_game.png)
+
 You can choose from the old teams and create from them some game
+
 ![Add Game2](sportleague/screenshots/add_game1.png)
+
 Also you can choose "Create New Team" and forms dynamically opens for the new teams
+
 ![Add Game3](sportleague/screenshots/add_game2.png)
+
 After adding the team it will apear in the Game and Ranking table with their scores:
+
 ![Add Game4](sportleague/screenshots/add_game3.png)
 ![Add Game5](sportleague/screenshots/add_game4.png)
 ![Add Game6](sportleague/screenshots/add_game5.png)
 
-### Only Authorized users can Upload CSV, Edit Game Table (Delete, Update, Add):
+## Only Authorized users can Upload CSV, Edit Game Table (Delete, Update, Add):
 ![Permission 1](sportleague/screenshots/permission1.png)
 ![Permission 2](sportleague/screenshots/permission2.png)
+
 If there are no data yet, not registered users are promted 
 to Login to Upload, Add or Edit games:
+
 ![Permission 3](sportleague/screenshots/permission3.png)
 ![Permission 4](sportleague/screenshots/permission4.png)
 If there are no data yet authorized users are promted to Upload, Add or Edit games:
@@ -184,11 +201,13 @@ If there are no data yet authorized users are promted to Upload, Add or Edit gam
 ![Permission 6](sportleague/screenshots/permission6.png)
 
 ## Login and Register:
-Login:
+
+#### Login Page:
 ![Login 1](sportleague/screenshots/login1.png)
 ![Login 2](sportleague/screenshots/login2.png)
 ![Login 3](sportleague/screenshots/login3.png)
-Register:
+
+#### Register Page:
 ![Register 1](sportleague/screenshots/register1.png)
 ![Register 2](sportleague/screenshots/register2.png)
 
