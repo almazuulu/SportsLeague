@@ -62,28 +62,32 @@ class CreateGameView(CreateView):
     success_url = reverse_lazy('games')
     
     def form_valid(self, form):
-        # Saving the changes
-        response = super().form_valid(form)
+        # Check if a new team needs to be created for team_1
+        if form.cleaned_data['team_1'] == 'new':
+            team_1, created = Team.objects.get_or_create(name=form.cleaned_data['team_1_new_name'])
+        else:
+            team_1 = Team.objects.get(pk=form.cleaned_data['team_1'])
         
-        # Getting the old values before the update
-        old_team_1 = self.object.team_1
-        old_team_2 = self.object.team_2
+        # Check if a new team needs to be created for team_2
+        if form.cleaned_data['team_2'] == 'new':
+            team_2, created = Team.objects.get_or_create(name=form.cleaned_data['team_2_new_name'])
+        else:
+            team_2 = Team.objects.get(pk=form.cleaned_data['team_2'])
 
-        # Updating the game with new values from the form
-        game = form.save()
+        # Assign the teams to the game
+        self.object = form.save(commit=False)
+        self.object.team_1 = team_1
+        self.object.team_2 = team_2
+
+        # Now save the object
+        self.object.save()
         
-        # Recalculating ranking for the old teams and new teams
-        old_team_1.recalculate_points()
-        old_team_2.recalculate_points()
-        game.team_1.recalculate_points()
-        game.team_2.recalculate_points()
+        # Recalculating ranking for the teams
+        team_1.recalculate_points()
+        team_2.recalculate_points()
 
-        # Check and remove teams not involved in any games
-        for team in [old_team_1, old_team_2, game.team_1, game.team_2]:
-            if not Game.objects.filter(team_1=team).exists() and not Game.objects.filter(team_2=team).exists():
-                team.delete()
-
-        return response
+        # Return the default response
+        return super(CreateView, self).form_valid(form)
     
     
 class GameDeleteView(DeleteView):
