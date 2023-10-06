@@ -86,9 +86,12 @@ class CreateGameView(CreateView):
         self.object.team_2 = team_2
         self.object.save()
 
+        game_message = f'Game <strong>"{team_1.name} {self.object.team_1_score} - {self.object.team_2_score} {team_2.name}"</strong> has been added'
+        messages.success(self.request, game_message)
+        
         team_1.recalculate_points()
         team_2.recalculate_points()
-
+        
         return super().form_valid(form)
 
 

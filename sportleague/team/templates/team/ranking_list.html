@@ -30,7 +30,7 @@
     <div class="d-flex flex-column justify-content-center align-items-center text-center mt-3">
         {% if user.is_authenticated %}
         <p class="lead">There are no teams yet.</p>
-        <p class="mb-3">To see the <strong>Rankings Table</strong>, please <a href="{% url 'home' %}">Upload CSV</a> or <a href="{% url 'create_game' %}" class="btn btn-success mt-2">Add New Game</a>.</p>
+        <p class="mb-3">To see the <strong>Rankings Table</strong>, please <a href="{% url 'home' %}">Upload CSV</a> <br> OR <br> <a href="{% url 'create_game' %}" class="btn btn-success mt-2">Add New Game</a>.</p>
         {% else %}
         <p class="lead">There are no teams yet.</p>
         <p class="mb-3">To see the <strong>Rankings Table</strong>, please <a href="{% url 'login' %}">Login</a>.</p>
