@@ -148,7 +148,8 @@ after we edit the game:
 ![Edit Game3](sportleague/screenshots/update_ranking_ed1.png)
 ![Edit Game4](sportleague/screenshots/update_ranking_ed.png)
 ![Edit Game5](sportleague/screenshots/update_ranking_ed2.png)
-![Edit Game6](sportleague/screenshots/update_ranking_ed3.png.png)
+![Edit Game6](sportleague/screenshots/update_ranking_ed3.png)
+![Edit Game6](sportleague/screenshots/update_ranking_ed4.png)
 
 ### Deleting the Game:
 
