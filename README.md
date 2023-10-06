@@ -6,17 +6,25 @@ Welcome to the Django-based Sports League Ranking Table web application.
 This application allows users to upload a CSV file containing the results of 
 games in a sports league, and it displays the ranking table based on the uploaded data.
 
+---
+
 ## Table of Contents
 
+- [Introduction](#introduction)
 - [Features](#features)
 - [CSV Format](#csv-format)
 - [Points System](#points-system)
 - [Sample Input](#sample-input)
 - [Sample Output](#sample-output)
-- [Extra Features](#extra-features)
-- [Evaluation](#evaluation)
-- [Submission](#submission)
-- [Platform](#platform)
+- [Installation & Setup](#installation--setup)
+- [Screenshots](#screenshots-of-the-web-application)
+  - [Main Page to Upload CSV](#main-page-to-upload-csv)
+  - [Games Table after Uploading CSV File](#games-table-after-uploading-csv-file)
+  - [Editing the Game](#editing-the-game)
+  - [Deleting the Game](#deleting-the-game)
+  - [Adding Game](#adding-game)
+  - [Authorization Permissions](#authorization-permissions)
+  - [Login and Register](#login-and-register)
 
 ## Features
 
