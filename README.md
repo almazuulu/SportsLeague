@@ -106,10 +106,12 @@ Now, the application should be running at `http://127.0.0.1:8000/`.
 
 Now, you can manage the games and other contents of your project from the admin panel.
 
-### 8. Access the Admin Panel:
+### 8. Upload CSV File:
 
 From the page `http://127.0.0.1:8000/` you can upload CSV File if you LogedIn User, 
 Else you have to register
+
+NOTICE: You can use "sport_games.csv" file to upload csv and test it
 
 # Screenshots of the Web Application:
 
@@ -127,7 +129,7 @@ There you can make all CRUD Operations:
 ![Edit Game1](sportleague/screenshots/edit_game.png)
 ![Edit Game2](sportleague/screenshots/edit_game1.png)
 
-Notice that after editing the game, ranking also dynamically updates
+NOTICE: After editing the game, ranking also dynamically updates
 Example of game between teams Crazy Ones vs. Misfits and how their ranking updates 
 after we edit the game:
 
@@ -140,7 +142,7 @@ after we edit the game:
 ![Delete Game1](sportleague/screenshots/delete_game.png)
 ![Delete Game2](sportleague/screenshots/delete_game1.png)
 
-Notice that after deleting the game, ranking also dynamically updates
+Notice: After deleting the game, ranking also dynamically updates
 If we delete the game and one of the team has no more games between other teams 
 this team is removed from the Ranking table also
 
