@@ -145,10 +145,10 @@ NOTICE: After editing the game, ranking also dynamically updates
 Example of game between teams Crazy Ones vs. Misfits and how their ranking updates 
 after we edit the game:
 
-![Edit Game3](sportleague/screenshots/add_update_rating1.png)
-![Edit Game4](sportleague/screenshots/add_update_rating2.png)
-![Edit Game5](sportleague/screenshots/add_update_rating3.png)
-![Edit Game6](sportleague/screenshots/add_update_rating4.png)
+![Edit Game3](sportleague/screenshots/update_ranking_ed1.png)
+![Edit Game4](sportleague/screenshots/update_ranking_ed.png)
+![Edit Game5](sportleague/screenshots/update_ranking_ed2.png)
+![Edit Game6](sportleague/screenshots/update_ranking_ed3.png.png)
 
 ### Deleting the Game:
 
