@@ -183,7 +183,7 @@ If there are no data yet authorized users are promted to Upload, Add or Edit gam
 ![Permission 5](sportleague/screenshots/permission5.png)
 ![Permission 6](sportleague/screenshots/permission6.png)
 
-### Login and Register:
+## Login and Register:
 Login:
 ![Login 1](sportleague/screenshots/login1.png)
 ![Login 2](sportleague/screenshots/login2.png)
