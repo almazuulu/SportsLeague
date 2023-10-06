@@ -1,25 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="container mt-5">
-    <h2 class="text-center m-3">Team Rankings</h2>
-    <table class="table table-striped text-center">
-        <thead>
-            <tr>
-                <th><i class="fas fa-trophy text-success"></i> Ranking</th>
-                <th><i class="fas fa-users text-primary"></i> Team</th>
-                <th><i class="fas fa-star text-info"></i> Points</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for team in teams %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ team.name }}</td>
-                <td>{{ team.points }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-  </div>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Team Rankings</h2>
+
+    {% if teams %}
+    <div class="table-responsive">  <!-- Responsive table container -->
+        <table class="table table-hover table-striped table-bordered text-center">
+            <thead class="bg-light">
+                <tr>
+                    <th><i class="fas fa-trophy text-success"></i> Ranking</th>
+                    <th><i class="fas fa-users text-primary"></i> Team</th>
+                    <th><i class="fas fa-star text-warning"></i> Points</th>  <!-- Made the star icon text-warning for a gold-like look -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for team in teams %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ team.name }}</td>
+                    <td>{{ team.points }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+    <div class="d-flex flex-column justify-content-center align-items-center text-center mt-3">
+        {% if user.is_authenticated %}
+        <p class="lead">There are no teams yet.</p>
+        <p class="mb-3">To see the <strong>Rankings Table</strong>, please <a href="{% url 'home' %}">Upload CSV</a> or <a href="{% url 'create_game' %}" class="btn btn-success mt-2">Add New Game</a>.</p>
+        {% else %}
+        <p class="lead">There are no teams yet.</p>
+        <p class="mb-3">To see the <strong>Rankings Table</strong>, please <a href="{% url 'login' %}">Login</a>.</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

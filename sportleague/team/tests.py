@@ -3,7 +3,6 @@ from django.urls import reverse
 from .models import Team, Game
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-
 # Unit tests for Models
 class TeamModelTest(TestCase):
 
