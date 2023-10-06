@@ -8,6 +8,7 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="input-group mb-3">
+                    {% if user.is_authenticated %}
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="{{ form.csv_file.id_for_label }}" name="{{ form.csv_file.name }}">
                         <label class="custom-file-label" for="{{ form.csv_file.id_for_label }}">Choose file</label>
@@ -16,6 +17,9 @@
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary">Upload</button>
                 </div>
+                {% else %}
+                        Sorry, you can't upload CSV File. Only authenticated users can do it. Please <a href="{% url 'login' %}"> Login </a>
+                {% endif %}
             </form>
         </div>
     </div>

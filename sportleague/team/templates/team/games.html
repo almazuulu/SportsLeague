@@ -7,7 +7,13 @@
 {% block content %}
   <div class="container mt-5">
     
-    <h2 class="text-center m-3">Games List</h2>
+    <h2 class="text-center m-3 mb-4">Games List</h2>
+    {% if not user.is_authenticated %}
+    <div class="alert alert-danger alert-dismissible text-center">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+         <strong>Only authorized users</strong> can edit games table! Please <a href="{% url 'login' %}" class="alert-link" style="text-decoration: underline;"> Login</a> to edit!
+      </div>
+    {% endif %}
     <table class="table table-striped text-center">
         <thead>
             <tr>
@@ -16,7 +22,9 @@
                 <th><i class="fa fa-star text-info"></i> Team 1 Score</th>
                 <th><i class="fa fa-users text-danger"></i> Team 2</th>
                 <th><i class="fa fa-star text-info"></i> Team 2 Score</th>
+                {% if user.is_authenticated %}
                 <th><i class="fa fa-cogs text-primary"></i> Operations</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -27,10 +35,12 @@
                 <td>{{ game.team_1_score }}</td>
                 <td>{{ game.team_2 }}</td>
                 <td>{{ game.team_2_score }}</td>
+                {% if user.is_authenticated %}
                 <td>
                     <a href="{% url 'edit_game' game.pk %}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit</a>
                     <a href="{% url 'delete_game' game.pk %}" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
                 </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>

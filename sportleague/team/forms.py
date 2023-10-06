@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from .models import Game, Team
 
 class UploadCSVForm(forms.Form):
@@ -80,3 +82,21 @@ class GameEditForm(forms.ModelForm):
     class Meta:
         model = Game
         fields = ['team_1', 'team_1_score', 'team_2', 'team_2_score']
+        
+        
+class CustomUserCreationForm(UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2']
+        help_texts = {
+            'username': '',
+            'password1': '',
+            'password2': '',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password1'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password2'].widget.attrs.update({'class': 'form-control'})

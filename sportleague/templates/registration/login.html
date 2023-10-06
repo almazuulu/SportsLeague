@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login
+{% endblock  %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+
+        <!-- For displaying Any messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} mt-3">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- For displaying any error messages  -->
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger mt-3">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <form method="post" class="form-signin">
+            {% csrf_token %}
+            <h2 class="form-signin-heading text-center mb-5">Please sign in</h2>
+            
+            <div class="mb-3">
+                <label for="id_username" class="sr-only">Username</label>
+                <input type="text" id="id_username" name="username" class="form-control" placeholder="Username" required autofocus>
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_password" class="sr-only">Password</label>
+                <input type="password" id="id_password" name="password" class="form-control" placeholder="Password" required>
+                {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            <button class="btn btn-lg btn-primary btn-block mb-4" type="submit">Sign in</button>
+            <div class="text-center">
+                Not registered yet? <a href="{% url 'register' %}">Register</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

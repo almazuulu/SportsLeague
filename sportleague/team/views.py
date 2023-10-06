@@ -4,10 +4,15 @@ from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView, DeleteView, UpdateView
 from django.views.generic import TemplateView, ListView, CreateView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+
 from io import TextIOWrapper
 
 from .models import Game, Team
-from .forms import UploadCSVForm, GameForm, GameEditForm
+from .forms import UploadCSVForm, GameForm, GameEditForm, CustomUserCreationForm
+from django.contrib.auth.models import User
 
 
 class UploadCSVView(FormView):
@@ -116,4 +121,23 @@ class GameDeleteView(DeleteView):
 
         return response
 
+# Registration
+class UserRegisterView(CreateView):
+    model = User
+    form_class = CustomUserCreationForm
+    template_name = 'registration/register.html'
+    success_url = reverse_lazy('login')
+    
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, "Registration successful! You can now login.")
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(self.request, error)
+        return response
+    
     
